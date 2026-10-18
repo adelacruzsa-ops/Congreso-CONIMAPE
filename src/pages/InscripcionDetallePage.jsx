@@ -97,7 +97,7 @@ export default function InscripcionDetallePage() {
           <div className="mt-8 max-w-3xl mx-auto bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-amber-500/20 border border-amber-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-amber-300 text-sm font-medium shadow-lg">
             <div className="flex items-center gap-3">
               <Calendar className="shrink-0 text-amber-400" size={24} />
-              <span>Aprovecha estas ofertas de preventa ampliadas hasta el <strong>15 DE OCTUBRE</strong></span>
+              <span>Aprovecha estas ofertas de preventa ampliadas hasta el <strong>25 DE OCTUBRE</strong></span>
             </div>
             <div className="flex items-center gap-2 text-xs bg-amber-500/20 text-amber-200 px-3 py-1.5 rounded-lg border border-amber-500/30 shrink-0">
               <MapPin size={14} className="text-amber-400" />
