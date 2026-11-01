@@ -87,6 +87,17 @@ export default function PonentesSitio() {
         <div className="ps-bg-a"><Contornos id={21} color="#f59e0b" gain={1} /></div>
         <div className="ps-bg-b"><Contornos id={7} color="#f59e0b" gain={1} /></div>
       </div>
+      {/* Cinta con todos los nombres */}
+      <div className="ps-cinta mb-10" aria-hidden="true">
+        <div className="animate-marquee">
+          {[...PONENTES, ...PONENTES].map((p, i) => (
+            <span key={i} className={`ps-cinta-item font-bebas ${i % 2 ? 'ps-hueco' : ''}`}>
+              {p.nombre}<i>◆</i>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Filtros: mismo estilo que las pestañas del sitio */}
       <div className="flex flex-wrap justify-center items-center gap-2 mb-12 bg-dark-surface/80 p-2 rounded-2xl border border-white/10 max-w-2xl mx-auto backdrop-blur-md" role="group" aria-label="Filtrar ponentes">
         {FILTROS.map(([key, t]) => (
@@ -116,38 +127,50 @@ export default function PonentesSitio() {
                   onClick={(e) => { volver.current = e.currentTarget; setAbierto(p.id) }}
                   onMouseMove={brillo}
                   aria-label={`Ver la ponencia de ${p.nombre}`}
-                  className="ps-card group relative w-full h-full flex gap-5 sm:gap-6 items-stretch text-left overflow-hidden rounded-3xl border border-gold-500/30 bg-gradient-to-b from-white/10 to-white/5 p-4 sm:p-5 hover:border-gold-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300 cursor-pointer"
+                  className="ps-card ps-ticket group relative w-full h-full flex items-stretch text-left overflow-hidden rounded-3xl border border-gold-500/30 hover:border-gold-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300 cursor-pointer"
                 >
                   <span className="ps-halo" aria-hidden="true" />
                   <span className="ps-glow" aria-hidden="true" />
-                  <span className="ps-idx font-bebas" aria-hidden="true">{String(p.id).padStart(2, '0')}</span>
-                  <div className="ps-frame relative shrink-0 w-28 sm:w-40 self-start">
-                    <div className="relative aspect-[2/3] rounded-2xl overflow-hidden ring-2 ring-amber-500/70 shadow-2xl shadow-black/60">
+                  <span className="ps-topbar" aria-hidden="true" />
+
+                  {/* Talón del pase: foto + número */}
+                  <div className="ps-stub relative shrink-0 w-[8.2rem] sm:w-48 p-4 sm:p-5 flex flex-col items-center gap-3 border-r border-dashed border-amber-500/40">
+                    <div className="relative w-full aspect-[2/3] rounded-2xl overflow-hidden ring-2 ring-amber-500/70 shadow-2xl shadow-black/60">
                       <Media p={p} />
                     </div>
+                    <div className="text-center leading-none">
+                      <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-1">Pase</span>
+                      <span className="font-bebas text-3xl sm:text-4xl tracking-widest text-amber-400">N.º {String(p.id).padStart(2, '0')}</span>
+                    </div>
                   </div>
-                  <div className="relative min-w-0 flex-1 flex flex-col">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">
-                        <Clock size={12} /> {p.hora}
-                      </span>
+
+                  {/* Cuerpo del pase */}
+                  <div className="relative min-w-0 flex-1 flex flex-col p-5 sm:p-6">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.28em] text-amber-500">Ponente · II CONIMAPE 2026</span>
                       {p.pais && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-extrabold uppercase tracking-wide">
-                          <Globe2 size={12} /> {p.pais}
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500 text-black text-[10px] font-extrabold uppercase tracking-wide shrink-0">
+                          <Globe2 size={11} /> {p.pais}
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug">{p.nombre}</h3>
+                    <h3 className="font-bebas uppercase text-[1.7rem] sm:text-4xl leading-[0.95] tracking-wide text-white">{p.nombre}</h3>
                     <span className="ps-rule" aria-hidden="true" />
                     {p.cargo && <p className="text-sm text-amber-400 font-semibold leading-snug">{p.cargo}</p>}
                     <p className="text-sm text-gray-300 leading-snug mt-0.5">{p.empresa}</p>
-                    <div className="mt-4 pt-3 border-t border-white/10 flex-1">
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-amber-500 mb-1">Tema de ponencia</p>
-                      <p className={`text-sm leading-relaxed line-clamp-3 ${p.tema ? 'text-gray-200' : 'text-gray-500 italic'}`}>{p.tema || 'Tema por confirmar'}</p>
+
+                    <div className="ps-quote mt-4 pt-3 flex-1">
+                      <p className={`text-sm leading-relaxed line-clamp-3 ${p.tema ? 'text-gray-100' : 'text-gray-500 italic'}`}>{p.tema || 'Tema por confirmar'}</p>
                     </div>
-                    <span className="mt-4 self-start inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/40 text-sm font-bold text-amber-400 group-hover:bg-amber-500 group-hover:text-black group-hover:gap-3 transition-all duration-300">
-                      Ver detalle <ArrowRight size={16} />
-                    </span>
+
+                    <div className="mt-4 pt-3 border-t border-dashed border-white/15 flex flex-wrap items-center justify-between gap-3">
+                      <span className="inline-flex items-center gap-2 font-bebas text-2xl tracking-wider text-white">
+                        <Clock size={16} className="text-amber-400" /> {p.hora}
+                      </span>
+                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/40 text-sm font-bold text-amber-400 group-hover:bg-amber-500 group-hover:text-black group-hover:gap-3 transition-all duration-300">
+                        Ver detalle <ArrowRight size={16} />
+                      </span>
+                    </div>
                   </div>
                 </button>
               </li>
