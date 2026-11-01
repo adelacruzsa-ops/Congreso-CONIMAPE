@@ -36,23 +36,20 @@ function Contador({ n }) {
   return <span ref={ref}>{v}</span>
 }
 
-// Foto del ponente o, mientras no haya, un panel ámbar con curvas de nivel (mapa minero)
-function Media({ p, grande }) {
-  if (p.foto) {
-    return (
-      <>
-        <img src={p.foto} alt={`Foto de ${p.nombre}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-[50%_12%] transition-transform duration-700 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#161616] via-transparent to-black/20" />
-      </>
-    )
-  }
+// Foto del ponente (vertical 2:3, sin recortes) o, mientras no haya, un panel ámbar con curvas de nivel
+function Media({ p }) {
   return (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700" />
-      <div className="absolute inset-0 mix-blend-multiply"><Contornos id={p.id} color="#000" gain={0.55} /></div>
-      <span aria-hidden="true" className={`absolute inset-0 flex items-center justify-center font-bebas text-black/85 tracking-wide ${grande ? 'text-[11rem]' : 'text-[8.5rem]'} leading-none`}>{iniciales(p)}</span>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#161616] via-transparent to-transparent" />
-    </>
+    <div className="absolute inset-0 overflow-hidden" style={{ containerType: 'inline-size' }}>
+      {p.foto ? (
+        <img src={p.foto} alt={`Foto de ${p.nombre}`} loading="lazy" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+      ) : (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700" />
+          <div className="absolute inset-0 mix-blend-multiply"><Contornos id={p.id} color="#000" gain={0.55} /></div>
+          <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-bebas text-black/85 tracking-wide leading-none" style={{ fontSize: '58cqw' }}>{iniciales(p)}</span>
+        </>
+      )}
+    </div>
   )
 }
 
@@ -135,36 +132,38 @@ export default function PonentesSitio() {
             <span className="text-xs font-semibold uppercase tracking-widest text-gray-500 whitespace-nowrap">{g.items.length} {g.items.length === 1 ? 'ponente' : 'ponentes'}</span>
           </div>
 
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {g.items.map((p) => (
-              <li key={p.id} className="ps-item" style={{ '--k': k++ % 6 }}>
+              <li key={p.id} className="ps-item" style={{ '--k': k++ % 4 }}>
                 <button
                   onClick={(e) => { volver.current = e.currentTarget; setAbierto(p.id) }}
                   onMouseMove={brillo}
                   aria-label={`Ver la ponencia de ${p.nombre}`}
-                  className="ps-card group relative w-full h-full flex flex-col text-left overflow-hidden rounded-3xl border border-gold-500/30 bg-gradient-to-b from-white/10 to-white/5 hover:border-gold-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300 cursor-pointer"
+                  className="ps-card group relative w-full h-full flex gap-5 sm:gap-6 items-stretch text-left overflow-hidden rounded-3xl border border-gold-500/30 bg-gradient-to-b from-white/10 to-white/5 p-4 sm:p-5 hover:border-gold-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300 cursor-pointer"
                 >
                   <span className="ps-glow" aria-hidden="true" />
-                  <div className="relative h-72 overflow-hidden">
+                  <div className="relative shrink-0 w-28 sm:w-40 aspect-[2/3] self-start rounded-2xl overflow-hidden ring-1 ring-amber-500/50 shadow-lg shadow-black/50">
                     <Media p={p} />
-                    <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-amber-300 text-xs font-bold border border-amber-500/30">
-                      <Clock size={12} /> {p.hora}
-                    </span>
-                    {p.pais && (
-                      <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-extrabold uppercase tracking-wide">
-                        <Globe2 size={12} /> {p.pais}
-                      </span>
-                    )}
                   </div>
-                  <div className="relative p-6 pt-4 flex-1 flex flex-col">
-                    <h3 className="text-xl font-extrabold text-white leading-snug mb-1">{p.nombre}</h3>
+                  <div className="relative min-w-0 flex-1 flex flex-col">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">
+                        <Clock size={12} /> {p.hora}
+                      </span>
+                      {p.pais && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-extrabold uppercase tracking-wide">
+                          <Globe2 size={12} /> {p.pais}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug mb-1">{p.nombre}</h3>
                     {p.cargo && <p className="text-sm text-amber-400 font-semibold leading-snug">{p.cargo}</p>}
                     <p className="text-sm text-gray-300 leading-snug mt-0.5">{p.empresa}</p>
-                    <div className="mt-5 pt-4 border-t border-white/10 flex-1">
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-amber-500 mb-1.5">Tema de ponencia</p>
+                    <div className="mt-4 pt-3 border-t border-white/10 flex-1">
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-amber-500 mb-1">Tema de ponencia</p>
                       <p className={`text-sm leading-relaxed line-clamp-3 ${p.tema ? 'text-gray-200' : 'text-gray-500 italic'}`}>{p.tema || 'Tema por confirmar'}</p>
                     </div>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-amber-400 group-hover:gap-3 transition-all">
+                    <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-amber-400 group-hover:gap-3 transition-all">
                       Ver detalle <ArrowRight size={16} />
                     </span>
                   </div>
@@ -177,11 +176,13 @@ export default function PonentesSitio() {
 
       {actual && (
         <div className="ps-modal fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-label={`Ponencia de ${actual.nombre}`} onClick={(e) => e.target === e.currentTarget && cerrar()}>
-          <article key={actual.id} className="ps-hoja relative w-full max-w-4xl my-auto grid md:grid-cols-[1fr_1.35fr] overflow-hidden rounded-3xl border border-gold-500/40 bg-dark-surface shadow-2xl shadow-black">
-            <div className="relative h-72 md:h-auto md:min-h-[460px] overflow-hidden">
-              <Media p={actual} grande />
+          <article key={actual.id} className="ps-hoja relative w-full max-w-4xl my-auto grid md:grid-cols-[0.8fr_1.5fr] overflow-hidden rounded-3xl border border-gold-500/40 bg-dark-surface shadow-2xl shadow-black">
+            <div className="p-6 sm:p-8 md:pr-0 flex items-center justify-center">
+              <div className="relative w-48 sm:w-60 md:w-full max-w-[300px] aspect-[2/3] rounded-2xl overflow-hidden ring-1 ring-amber-500/50 shadow-2xl shadow-black">
+                <Media p={actual} />
+              </div>
             </div>
-            <div className="relative p-7 sm:p-10 flex flex-col">
+            <div className="relative p-7 sm:p-10 md:pl-8 flex flex-col">
               <button ref={cerrarBtn} onClick={cerrar} aria-label="Cerrar" className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-white flex items-center justify-center transition-colors"><X size={20} /></button>
               <span className="self-start inline-block px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold mb-4 border border-amber-500/20">
                 {actual.pais ? `Ponente internacional · ${actual.pais}` : 'Ponente confirmado'}
