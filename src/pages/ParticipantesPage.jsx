@@ -98,9 +98,6 @@ export default function ParticipantesPage({ defaultTab }) {
           <div className="animate-fadeIn">
             {MOSTRAR_PONENTES && hasSpeakers ? (
               <div className="mb-16">
-                <p className="text-sm text-gray-400 mb-8">
-                  <span className="text-amber-400 font-bold">{PONENTES.length} ponentes confirmados</span> · La lista se irá actualizando
-                </p>
                 <PonentesSitio />
               </div>
             ) : (
