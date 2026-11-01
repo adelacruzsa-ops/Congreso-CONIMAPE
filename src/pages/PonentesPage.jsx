@@ -28,15 +28,17 @@ export default function PonentesPage() {
                 key={ponente.id}
                 className="bg-dark-surface border border-white/10 rounded-3xl overflow-hidden shadow-xl hover:border-gold-500 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between text-left"
               >
-                <img
-                  src={ponente.foto}
-                  alt={ponente.nombre}
-                  className="w-full h-64 object-cover"
-                />
+                {ponente.foto && (
+                  <img
+                    src={ponente.foto}
+                    alt={ponente.nombre}
+                    className="w-full h-64 object-cover"
+                  />
+                )}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
                     <span className="text-xs font-bold text-gold-400 bg-gold-500/10 px-3 py-1 rounded-full border border-gold-500/20 uppercase tracking-wider">
-                      {ponente.categoria}
+                      {ponente.pais ? `Internacional · ${ponente.pais}` : ponente.dia}
                     </span>
                     <h2 className="text-xl font-bold text-white mt-3 mb-1">
                       {ponente.nombre}
@@ -45,12 +47,7 @@ export default function PonentesPage() {
                       {ponente.cargo}
                     </p>
                     <p className="text-xs text-gold-300 font-semibold mb-4">
-                      {ponente.institucion}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-white/10">
-                    <p className="text-xs text-gray-300 italic">
-                      🎤 "{ponente.tema}"
+                      {ponente.empresa}
                     </p>
                   </div>
                 </div>

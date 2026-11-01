@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PONENTES, AUSPICIADORES, COLABORADORES, WHATSAPP_NUMBER, CONTACT_EMAIL, MOSTRAR_PONENTES } from '../config/constants'
+import PonentesAgenda from '../components/PonentesAgenda'
 import { UserCheck, Award, Users, Send, CheckCircle2, BookOpen, Leaf, ShieldCheck, TrendingUp, Sparkles, HeartHandshake, ClipboardList, Quote } from 'lucide-react'
 
 export default function ParticipantesPage({ defaultTab }) {
@@ -96,46 +97,11 @@ export default function ParticipantesPage({ defaultTab }) {
         {activeTab === 'ponentes' && (
           <div className="animate-fadeIn">
             {MOSTRAR_PONENTES && hasSpeakers ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                {PONENTES.map((ponente) => (
-                  <div
-                    key={ponente.id}
-                    className="bg-dark-surface border border-white/10 rounded-3xl overflow-hidden shadow-xl hover:border-amber-400 transition-all flex flex-col justify-between text-left group"
-                  >
-                    <div>
-                      <div className="h-64 overflow-hidden bg-black relative">
-                        <img
-                          src={ponente.foto}
-                          alt={ponente.nombre}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <span className="absolute top-4 right-4 bg-amber-500 text-black font-extrabold text-xs px-3 py-1 rounded-full shadow-lg">
-                          {ponente.categoria}
-                        </span>
-                      </div>
-
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-amber-300 transition-colors">
-                          {ponente.nombre}
-                        </h3>
-                        <p className="text-xs text-amber-400 font-semibold mb-1">{ponente.cargo}</p>
-                        <p className="text-xs text-gray-400 mb-4">{ponente.institucion}</p>
-
-                        <div className="bg-white/5 p-4 rounded-2xl border border-white/5 mb-4">
-                          <span className="text-[11px] font-bold text-gray-400 uppercase block mb-1">TEMA / PONENCIA:</span>
-                          <p className="text-sm font-semibold text-white leading-snug">{ponente.tema}</p>
-                        </div>
-
-                        {ponente.biografia && (
-                          <div className="text-xs text-gray-300 bg-amber-500/5 p-3 rounded-xl border border-amber-500/10 flex gap-2">
-                            <Quote size={16} className="text-amber-400 shrink-0 mt-0.5" />
-                            <p className="italic">{ponente.biografia}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="mb-16">
+                <p className="text-sm text-gray-400 mb-8">
+                  <span className="text-amber-400 font-bold">{PONENTES.length} ponentes confirmados</span> · La lista se irá actualizando
+                </p>
+                <PonentesAgenda />
               </div>
             ) : (
               /* ESTADO OCULTO / PRÓXIMAMENTE PARA PONENTES */

@@ -14,7 +14,7 @@ export const LINK_FORM = LINKS_INSCRIPCION.individual
 // VARIABLES DE CONTROL DE VISIBILIDAD (Configura en true o false)
 // =========================================================================
 export const MOSTRAR_PROGRAMA = false
-export const MOSTRAR_PONENTES = false
+export const MOSTRAR_PONENTES = true
 
 export const WHATSAPP_NUMBER = '51942503614'
 export const WHATSAPP_DISPLAY = '+51 942 503 614'
@@ -90,36 +90,25 @@ export const EJES_TEMATICOS = [
 // LISTA DE PONENTES (CONFERENCISTAS CONFIRMADOS Y DESTACADOS)
 // =========================================================================
 export const PONENTES = [
-    {
-        id: 1,
-        nombre: 'Ing. Carlos Mendoza Rueda',
-        cargo: 'Especialista en Formalización y Gestión MAPE',
-        institucion: 'Dirección General de Formalización Minera - MINEM',
-        foto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80',
-        tema: 'Avances de la Nueva Ley MAPE y Desafíos de Formalización en el Perú',
-        categoria: 'Nacional',
-        biografia: 'Comprometido con la formalización inclusiva y articulada que transforme la minería artesanal en un motor económico seguro y sostenible.',
-    },
-    {
-        id: 2,
-        nombre: 'Dra. María Elena Torres',
-        cargo: 'Docente e Investigadora en Procesamiento Verde',
-        institucion: 'Universidad Nacional de San Agustín (UNSA)',
-        foto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80',
-        tema: 'Lixiviación Ecológica y Gravimetría Eficiente sin Mercurio',
-        categoria: 'Académico',
-        biografia: 'Impulsora del uso de tecnologías limpias aplicadas en laboratorio y campo para eliminar el mercurio en la pequeña minería.',
-    },
-    {
-        id: 3,
-        nombre: 'Dr. John Miller',
-        cargo: 'Consultor Internacional en SST y Geomecánica',
-        institucion: 'Global Mining Safety Institute',
-        foto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80',
-        tema: 'Prevención de Riesgos en Socavón y Estándares Internacionales',
-        categoria: 'Internacional',
-        biografia: 'Dedicado a promover estándares de prevención de riesgos en socavón y proteger la vida de cada trabajador minero.',
-    }
+    // Campos: nombre, corto (para las miniaturas), cargo, empresa, pais (solo internacionales),
+    // dia / diaNum, hora, tema, bio (opcional, admite <b>), foto (opcional, ruta dentro de /public/ponentes/)
+    // ---- Miércoles 4 de noviembre ----
+    { id: 1, nombre: 'José Farfán Estrada', corto: 'José Farfán', cargo: 'Abogado · Ex Director General de Formalización Minera', empresa: 'MINEM', dia: 'Miércoles 4', diaNum: 4, hora: '2:00 – 3:00 p.m.', tema: 'Propuestas para una Ley MAPE con seguridad jurídica y competitividad', bio: 'Dos veces Director General de Formalización Minera del <b>MINEM</b>, con más de <b>25 años</b> en el sector minero-energético y ambiental. Es fundador y presidente honorario del <b>IPF MAPE</b>.', foto: '/ponentes/jose-farfan.jpg' },
+    { id: 2, nombre: 'Eduardo Mansilla', corto: 'Eduardo Mansilla', cargo: '', empresa: 'Geosismic Consulting', dia: 'Miércoles 4', diaNum: 4, hora: '3:00 – 4:00 p.m.', tema: '' },
+    { id: 3, nombre: 'Cristyan Valdez Merma', corto: 'Cristyan Valdez', cargo: 'Gerente', empresa: 'MVP Consultores', dia: 'Miércoles 4', diaNum: 4, hora: '4:00 – 5:00 p.m.', tema: 'Más allá del REINFO: estrategias para la continuidad operativa' },
+    { id: 4, nombre: 'Oscar Calero Revolledo', corto: 'Oscar Calero', cargo: 'Vicepresidente de Operaciones', empresa: 'CAV Mining', dia: 'Miércoles 4', diaNum: 4, hora: '5:00 – 6:00 p.m.', tema: 'La IA en la pequeña minería y la minería artesanal: Minería 5.0' },
+    // ---- Jueves 5 de noviembre ----
+    { id: 5, nombre: 'Luciano Alejandro Taco Prado', corto: 'Luciano Taco', cargo: 'Presidente', empresa: 'Capítulo de Ingeniería de Minas, CIP Arequipa', dia: 'Jueves 5', diaNum: 5, hora: '9:00 – 9:30 a.m.', tema: 'De la informalidad hacia una minería formal, segura, productiva y sostenible' },
+    { id: 6, nombre: 'Patricio Céspedes Guzmán', corto: 'Patricio Céspedes', cargo: 'Presidente', empresa: 'Asociación Gremial Minera de Antofagasta', pais: 'Chile', dia: 'Jueves 5', diaNum: 5, hora: '9:30 – 10:00 a.m.', tema: 'El desarrollo de la pequeña minería en la formalidad' },
+    { id: 7, nombre: 'Betsabeth Obando Flores', corto: 'Betsabeth Obando', cargo: 'Gerente General', empresa: 'Minerva Crime & Compliance', pais: 'Chile', dia: 'Jueves 5', diaNum: 5, hora: '10:00 – 11:00 a.m.', tema: 'Minería ilegal y crimen organizado: ¿puede el compliance ser un blindaje estratégico?' },
+    { id: 8, nombre: 'Raúl Pango Rondón', corto: 'Raúl Pango', cargo: 'Coach Profesional · Docente de Posgrado', empresa: 'UNSA', dia: 'Jueves 5', diaNum: 5, hora: '2:00 – 3:00 p.m.', tema: 'Habilidades de poder para una negociación efectiva' },
+    { id: 9, nombre: 'Héctor Bolaños Sosa', corto: 'Héctor Bolaños', cargo: 'Administrador General', empresa: 'CILME Río Seco, UNSA', dia: 'Jueves 5', diaNum: 5, hora: '3:00 – 4:00 p.m.', tema: 'Pequeña minería en el Perú: de la problemática a la transformación tecnológica y sostenible' },
+    { id: 10, nombre: 'Willian Nuñez Zoras', corto: 'Willian Nuñez', cargo: 'Ingeniero de Minas', empresa: 'FAMESA Explosivos', dia: 'Jueves 5', diaNum: 5, hora: '4:00 – 5:00 p.m.', tema: 'Seguridad con explosivos' },
+    { id: 11, nombre: 'Manuel Redondez Roque', corto: 'Manuel Redondez', cargo: 'Gerente Corporativo SSOMA', empresa: 'JCI Ingeniería', dia: 'Jueves 5', diaNum: 5, hora: '5:00 – 6:00 p.m.', tema: 'Cero fatalidades: ¿es posible en la pequeña minería y minería artesanal?' },
+    // ---- Viernes 6 de noviembre ----
+    { id: 12, nombre: 'Franco Arista Rivera', corto: 'Franco Arista', cargo: 'Gerente Comercial', empresa: 'Soleil Metals', dia: 'Viernes 6', diaNum: 6, hora: '10:00 – 11:00 a.m.', tema: 'Plantas que transforman: hacia una cadena de oro responsable, del procesamiento del mineral a la creación de valor compartido' },
+    { id: 13, nombre: 'Paolo Andrés Alzamora', corto: 'Paolo Alzamora', cargo: 'Ex Presidente Ejecutivo', empresa: 'INGEMMET', dia: 'Viernes 6', diaNum: 6, hora: '11:00 a.m. – 12:00 m.', tema: 'Geología para formalizar: información geocientífica al servicio de la MAPE' },
+    { id: 14, nombre: 'Zoila Alejandro', corto: 'Zoila Alejandro', cargo: '', empresa: 'Marca Zoila Alejandro', dia: 'Viernes 6', diaNum: 6, hora: '2:00 – 3:00 p.m.', tema: 'Minería con alma: la condición humana como fuerza de transformación de la MAPE' },
 ]
 
 // =========================================================================
