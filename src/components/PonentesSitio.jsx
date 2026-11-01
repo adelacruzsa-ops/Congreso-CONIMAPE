@@ -14,7 +14,6 @@ const JORNADAS = [
   { num: 5, nombre: 'Jueves', corto: 'Jue 5' },
   { num: 6, nombre: 'Viernes', corto: 'Vie 6' },
 ]
-const FILTROS = [['todos', 'Todos'], ['4', 'Mié 4'], ['5', 'Jue 5'], ['6', 'Vie 6'], ['int', 'Internacional']]
 const iniciales = (p) => (p.corto || p.nombre).split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 
 // Foto del ponente (vertical 2:3, sin recortes) o, mientras no haya, un monograma dorado sobre fondo negro con curvas de nivel
@@ -36,14 +35,14 @@ function Media({ p }) {
 }
 
 export default function PonentesSitio() {
-  const [filtro, setFiltro] = useState('todos')
+  const [filtro, setFiltro] = useState('4')
   const [abierto, setAbierto] = useState(null)
   const volver = useRef(null)
   const cerrarBtn = useRef(null)
   const raiz = useRef(null)
 
   const lista = useMemo(
-    () => PONENTES.filter((p) => filtro === 'todos' || (filtro === 'int' ? !!p.pais : String(p.diaNum) === filtro)),
+    () => PONENTES.filter((p) => String(p.diaNum) === filtro),
     [filtro]
   )
   const pos = lista.findIndex((p) => p.id === abierto)
@@ -97,14 +96,20 @@ export default function PonentesSitio() {
         </h2>
       </header>
 
-      {/* Filtros: mismo estilo que las pestañas del sitio */}
-      <div className="flex flex-wrap justify-center items-center gap-2 mb-8 bg-dark-surface/80 p-2 rounded-2xl border border-white/10 max-w-2xl mx-auto backdrop-blur-md" role="group" aria-label="Filtrar ponentes">
-        {FILTROS.map(([key, t]) => (
-          <button key={key} onClick={() => setFiltro(key)} aria-pressed={filtro === key}
-            className={`px-4 sm:px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 ${filtro === key ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
-            {t}
-          </button>
-        ))}
+      {/* Pestañas por jornada */}
+      <div className="grid grid-cols-3 gap-2 mb-9 bg-dark-surface/80 p-2 rounded-2xl border border-white/10 max-w-xl mx-auto backdrop-blur-md" role="group" aria-label="Elegir jornada">
+        {JORNADAS.map((j, n) => {
+          const activo = filtro === String(j.num)
+          const cuantos = PONENTES.filter((p) => p.diaNum === j.num).length
+          return (
+            <button key={j.num} onClick={() => setFiltro(String(j.num))} aria-pressed={activo}
+              className={`py-2.5 sm:py-3 rounded-xl transition-all duration-300 ${activo ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}>
+              <span className={`block text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] ${activo ? 'text-black/70' : 'text-gray-500'}`}>Jornada {String(n + 1).padStart(2, '0')}</span>
+              <span className="block font-bebas text-2xl sm:text-3xl leading-none tracking-wide mt-0.5">{j.corto}</span>
+              <span className={`block text-[10px] sm:text-[11px] font-semibold mt-0.5 ${activo ? 'text-black/70' : 'text-gray-500'}`}>{cuantos} ponentes</span>
+            </button>
+          )
+        })}
       </div>
 
       {grupos.map((g) => (
@@ -121,7 +126,7 @@ export default function PonentesSitio() {
             <span className="hidden sm:block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2 whitespace-nowrap">{g.items.length} {g.items.length === 1 ? 'ponente' : 'ponentes'}</span>
           </div>
 
-          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+          <ul className="ps-grid">
             {g.items.map((p) => (
               <li key={p.id} className="ps-item" style={{ '--k': k++ % 4 }}>
                 <button

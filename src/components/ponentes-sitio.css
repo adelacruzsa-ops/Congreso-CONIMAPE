@@ -90,3 +90,10 @@
 .ps .ps-num { font-size: clamp(3.2rem, 7vw, 5rem); }
 .ps .ps-titulo { font-size: clamp(2.8rem, 7vw, 4.8rem); }
 @media (prefers-reduced-motion: reduce) { .ps .ps-more, .ps .ps-veil { transition: none; } }
+
+/* Rejilla centrada: las filas incompletas quedan al centro */
+.ps .ps-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; }
+.ps .ps-grid > li { width: calc((100% - .75rem) / 2); }
+@media (min-width: 640px) { .ps .ps-grid { gap: 1.25rem; } .ps .ps-grid > li { width: calc((100% - 1.25rem) / 2); } }
+@media (min-width: 768px) { .ps .ps-grid > li { width: calc((100% - 2.5rem) / 3); } }
+@media (min-width: 1024px) { .ps .ps-grid > li { width: calc((100% - 3.75rem) / 4); } }
