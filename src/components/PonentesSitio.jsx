@@ -17,25 +17,6 @@ const JORNADAS = [
 const FILTROS = [['todos', 'Todos'], ['4', 'Mié 4'], ['5', 'Jue 5'], ['6', 'Vie 6'], ['int', 'Internacional']]
 const iniciales = (p) => (p.corto || p.nombre).split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 
-function Contador({ n }) {
-  const [v, setV] = useState(0)
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const correr = () => {
-      const t0 = performance.now()
-      const paso = (t) => { const k = Math.min(1, (t - t0) / 900); setV(Math.round(n * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(paso) }
-      requestAnimationFrame(paso)
-    }
-    if (!('IntersectionObserver' in window)) { setV(n); return }
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { correr(); io.disconnect() } }, { threshold: 0.6 })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [n])
-  return <span ref={ref}>{v}</span>
-}
-
 // Foto del ponente (vertical 2:3, sin recortes) o, mientras no haya, un panel ámbar con curvas de nivel
 function Media({ p }) {
   return (
@@ -66,7 +47,6 @@ export default function PonentesSitio() {
   )
   const pos = lista.findIndex((p) => p.id === abierto)
   const actual = pos >= 0 ? lista[pos] : null
-  const nInt = PONENTES.filter((p) => p.pais).length
 
   // Aparición escalonada de las tarjetas
   useEffect(() => {
@@ -102,16 +82,6 @@ export default function PonentesSitio() {
 
   return (
     <div ref={raiz} className="ps text-left">
-      {/* Cifras */}
-      <div className="grid grid-cols-3 gap-3 sm:gap-5 max-w-3xl mx-auto mb-10">
-        {[[PONENTES.length, 'Ponentes confirmados'], [3, 'Jornadas'], [nInt, 'Desde Chile']].map(([n, t]) => (
-          <div key={t} className="rounded-2xl bg-white/5 border border-white/10 py-4 px-3 text-center">
-            <div className="font-bebas text-4xl sm:text-5xl text-amber-400 leading-none"><Contador n={n} /></div>
-            <div className="mt-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-gray-400">{t}</div>
-          </div>
-        ))}
-      </div>
-
       {/* Filtros: mismo estilo que las pestañas del sitio */}
       <div className="flex flex-wrap justify-center items-center gap-2 mb-12 bg-dark-surface/80 p-2 rounded-2xl border border-white/10 max-w-2xl mx-auto backdrop-blur-md" role="group" aria-label="Filtrar ponentes">
         {FILTROS.map(([key, t]) => (
