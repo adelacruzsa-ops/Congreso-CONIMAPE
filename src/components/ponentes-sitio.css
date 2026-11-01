@@ -1,99 +1,23 @@
-/* Efectos de apoyo para PonentesSitio (el resto usa las clases Tailwind del sitio) */
-.ps .ps-item { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--k, 0) * 80ms); }
+/* Apoyo mínimo para PonentesSitio: el diseño usa las clases Tailwind del resto del sitio */
+.ps .ps-item { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .7s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--k, 0) * 70ms); }
 .ps .ps-item.in { opacity: 1; transform: none; }
-.ps .ps-card { --mx: 50%; --my: 0%; }
-.ps .ps-glow { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .35s; background: radial-gradient(360px circle at var(--mx) var(--my), rgba(245, 158, 11, .16), transparent 60%); }
-.ps .ps-card:hover .ps-glow { opacity: 1; }
-.ps .ps-card:focus-visible, .ps button:focus-visible, .ps a:focus-visible { outline: 3px solid #f5bd45; outline-offset: 3px; }
-.ps .ps-modal { animation: ps-fade .25s both; }
-.ps .ps-hoja { animation: ps-pop .5s cubic-bezier(.2, .8, .2, 1) both; }
+.ps button:focus-visible, .ps a:focus-visible { outline: 3px solid #f5bd45; outline-offset: 3px; }
 .ps .ps-bio b { color: #f5bd45; font-weight: 700; }
-@keyframes ps-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes ps-pop { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) {
-  .ps .ps-item { opacity: 1; transform: none; transition: none; }
-  .ps .ps-modal, .ps .ps-hoja { animation: none; }
-}
-
-/* ---- Embellecimiento ---- */
-.ps > *:not(.ps-bg):not(.ps-modal) { position: relative; z-index: 1; }
-.ps .ps-bg { position: absolute; inset: -40px 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.ps .ps-bg-a { position: absolute; width: 760px; height: 760px; right: -240px; top: 80px; opacity: .13; mask-image: radial-gradient(circle, #000 35%, transparent 72%); -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 72%); }
-.ps .ps-bg-b { position: absolute; width: 700px; height: 700px; left: -260px; bottom: 40px; opacity: .10; mask-image: radial-gradient(circle, #000 35%, transparent 72%); -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 72%); }
-.ps .ps-bg svg { width: 100%; height: 100%; }
-
-.ps .ps-num { font-size: clamp(4.5rem, 11vw, 8.5rem); line-height: .78; letter-spacing: .02em; color: transparent; -webkit-text-stroke: 2px rgba(245, 158, 11, .85); background: linear-gradient(180deg, rgba(245, 158, 11, .55), rgba(245, 158, 11, 0) 85%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 22px rgba(245, 158, 11, .35)); }
-
-.ps .ps-halo { position: absolute; z-index: 0; left: -3rem; top: -3rem; width: 16rem; height: 16rem; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, .30), transparent 65%); filter: blur(10px); pointer-events: none; transition: opacity .4s, transform .6s; }
-.ps .ps-card:hover .ps-halo { transform: scale(1.25); }
-
-/* borde dorado que gira al pasar el mouse */
-@property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-.ps .ps-card::before { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; padding: 2px; pointer-events: none; opacity: 0; transition: opacity .35s;
-  background: conic-gradient(from var(--ang), transparent 0 55%, #f59e0b 78%, #fde68a 88%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: ps-spin 3.6s linear infinite; }
-.ps .ps-card:hover::before, .ps .ps-card:focus-visible::before { opacity: 1; }
-@keyframes ps-spin { to { --ang: 360deg; } }
-
-/* marco dorado desplazado detrás de la foto */
-.ps .ps-frame::before { content: ""; position: absolute; inset: 0; border: 1.5px solid rgba(245, 158, 11, .55); border-radius: 1rem; transform: translate(9px, 9px); transition: transform .4s; }
-
-.ps .ps-rule { display: block; width: 2.25rem; height: 3px; margin: .55rem 0 .65rem; border-radius: 3px; background: linear-gradient(90deg, #f59e0b, #fde68a); transition: width .4s; }
-.ps .ps-card:hover .ps-rule { width: 4.5rem; }
-.ps .ps-hoja .ps-halo { z-index: 0; }
-.ps .ps-hoja > * { position: relative; z-index: 1; }
-.ps .ps-hoja > .ps-halo { position: absolute; z-index: 0; }
-@media (prefers-reduced-motion: reduce) { .ps .ps-card::before { animation: none; } }
-
-.ps .ps-topbar { position: absolute; left: 0; right: 0; top: 0; height: 4px; z-index: 4; background: linear-gradient(90deg, #b45309, #f59e0b 35%, #fde68a 60%, #f59e0b 80%, #b45309); }
-
-/* ---- Diseño reforzado ---- */
-/* Título editorial */
-.ps .ps-titulo { font-size: clamp(3.4rem, 10vw, 7rem); letter-spacing: .04em; color: #fff; }
-.ps .ps-titulo span { color: transparent; -webkit-text-stroke: 1.5px rgba(253, 230, 138, .9); }
-.ps .ps-titulo b { font-weight: 400; background: linear-gradient(180deg, #fde68a 0%, #f59e0b 55%, #b45309 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 6px 28px rgba(245, 158, 11, .3)); }
-
-/* Jornada */
-.ps .ps-chip { padding: .22rem .65rem; border-radius: 999px; background: #f59e0b; color: #000; font-weight: 800; letter-spacing: .18em; white-space: nowrap; }
-.ps .ps-oro { background: linear-gradient(180deg, #fde68a, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.ps .ps-linea { background: linear-gradient(90deg, rgba(245, 158, 11, .6), rgba(245, 158, 11, .15) 60%, transparent); position: relative; }
-.ps .ps-linea::before { content: ""; position: absolute; left: 0; top: -3px; width: 7px; height: 7px; background: #f59e0b; transform: rotate(45deg); box-shadow: 0 0 12px #f59e0b; }
-
-/* Monograma: sustituye a la foto mientras no la haya */
-.ps .ps-mono { background: radial-gradient(90% 70% at 20% 0%, rgba(245, 158, 11, .30), transparent 60%), radial-gradient(80% 60% at 100% 100%, rgba(180, 83, 9, .35), transparent 65%), linear-gradient(160deg, #1c1608, #0a0a0a 70%); }
-.ps .ps-mono svg { width: 100%; height: 100%; }
-.ps .ps-mono-frame { position: absolute; inset: 7%; border: 1px solid rgba(245, 158, 11, .5); border-radius: .6rem; pointer-events: none; }
-.ps .ps-mono-frame::before, .ps .ps-mono-frame::after { content: ""; position: absolute; width: 14%; height: 14%; border: 2px solid #fbbf24; }
-.ps .ps-mono-frame::before { left: -1px; top: -1px; border-right: 0; border-bottom: 0; border-top-left-radius: .6rem; }
-.ps .ps-mono-frame::after { right: -1px; bottom: -1px; border-left: 0; border-top: 0; border-bottom-right-radius: .6rem; }
-.ps .ps-mono-ini { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; line-height: 1; letter-spacing: .02em; padding-bottom: 6%;
-  background: linear-gradient(180deg, #fff3c4 0%, #fbbf24 45%, #b45309 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
-.ps .ps-mono-tag { position: absolute; left: 0; right: 0; bottom: 14%; text-align: center; letter-spacing: .16em; white-space: nowrap; color: rgba(253, 230, 138, .75); }
-
-/* Ventana de detalle */
-.ps .ps-hoja .ps-topbar { position: absolute; z-index: 4; }
-.ps .ps-hoja .ps-mono-frame { inset: 6%; }
-
-.ps .ps-hoja > .ps-cerrar { position: absolute; top: 1rem; right: 1rem; z-index: 6; }
-
-/* ---- Cuadrícula compacta ---- */
-.ps .ps-card { background-image: none; }
-.ps .ps-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, rgba(0, 0, 0, .96) 0%, rgba(0, 0, 0, .82) 28%, rgba(0, 0, 0, .25) 58%, transparent 75%); transition: background .4s; }
-.ps .ps-card .ps-topbar { z-index: 3; }
-.ps .ps-hora { padding: .22rem .55rem; border-radius: 999px; background: rgba(0, 0, 0, .65); border: 1px solid rgba(245, 158, 11, .5); color: #fde68a; font-size: 10px; font-weight: 700; letter-spacing: .03em; backdrop-filter: blur(6px); }
-.ps .ps-card .ps-mono-ini { padding-bottom: 42%; }
-.ps .ps-card .ps-mono-tag, .ps .ps-card .ps-mono-frame { display: none; }
-.ps .ps-more { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s ease, opacity .35s ease; }
-@media (hover: hover) { .ps .ps-card:hover .ps-more, .ps .ps-card:focus-visible .ps-more { max-height: 9rem; opacity: 1; } }
-@media (hover: none) { .ps .ps-more { display: none; } }
-.ps .ps-card:hover .ps-veil { background: linear-gradient(to top, rgba(0, 0, 0, .97) 0%, rgba(0, 0, 0, .88) 45%, rgba(0, 0, 0, .3) 75%, transparent 92%); }
-.ps .ps-num { font-size: clamp(3.2rem, 7vw, 5rem); }
-.ps .ps-titulo { font-size: clamp(2.8rem, 7vw, 4.8rem); }
-@media (prefers-reduced-motion: reduce) { .ps .ps-more, .ps .ps-veil { transition: none; } }
 
 /* Rejilla centrada: las filas incompletas quedan al centro */
 .ps .ps-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; }
 .ps .ps-grid > li { width: calc((100% - .75rem) / 2); }
-@media (min-width: 640px) { .ps .ps-grid { gap: 1.25rem; } .ps .ps-grid > li { width: calc((100% - 1.25rem) / 2); } }
-@media (min-width: 768px) { .ps .ps-grid > li { width: calc((100% - 2.5rem) / 3); } }
-@media (min-width: 1024px) { .ps .ps-grid > li { width: calc((100% - 3.75rem) / 4); } }
+@media (min-width: 640px) { .ps .ps-grid { gap: 1.5rem; } .ps .ps-grid > li { width: calc((100% - 1.5rem) / 2); } }
+@media (min-width: 768px) { .ps .ps-grid > li { width: calc((100% - 3rem) / 3); } }
+@media (min-width: 1024px) { .ps .ps-grid > li { width: calc((100% - 4.5rem) / 4); } }
+
+/* Ventana de detalle */
+.ps .ps-modal { animation: ps-fade .25s both; }
+.ps .ps-hoja { animation: ps-pop .45s cubic-bezier(.2, .8, .2, 1) both; }
+.ps .ps-hoja > .ps-cerrar { position: absolute; top: 1rem; right: 1rem; z-index: 6; }
+@keyframes ps-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ps-pop { from { opacity: 0; transform: translateY(20px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ps .ps-item { opacity: 1; transform: none; transition: none; }
+  .ps .ps-modal, .ps .ps-hoja { animation: none; }
+}
