@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PONENTES, AUSPICIADORES, COLABORADORES, WHATSAPP_NUMBER, CONTACT_EMAIL, MOSTRAR_PONENTES } from '../config/constants'
-import PonentesGaleria from '../components/PonentesGaleria'
+import PonentesIndice from '../components/PonentesIndice'
 import { UserCheck, Award, Users, Send, CheckCircle2, BookOpen, Leaf, ShieldCheck, TrendingUp, Sparkles, HeartHandshake, ClipboardList, Quote } from 'lucide-react'
 
 export default function ParticipantesPage({ defaultTab }) {
@@ -101,7 +101,7 @@ export default function ParticipantesPage({ defaultTab }) {
                 <p className="text-sm text-gray-400 mb-8">
                   <span className="text-amber-400 font-bold">{PONENTES.length} ponentes confirmados</span> · La lista se irá actualizando
                 </p>
-                <PonentesGaleria />
+                <PonentesIndice />
               </div>
             ) : (
               /* ESTADO OCULTO / PRÓXIMAMENTE PARA PONENTES */
