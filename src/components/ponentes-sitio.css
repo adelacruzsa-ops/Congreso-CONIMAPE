@@ -24,13 +24,8 @@
 
 .ps .ps-num { font-size: clamp(4.5rem, 11vw, 8.5rem); line-height: .78; letter-spacing: .02em; color: transparent; -webkit-text-stroke: 2px rgba(245, 158, 11, .85); background: linear-gradient(180deg, rgba(245, 158, 11, .55), rgba(245, 158, 11, 0) 85%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 22px rgba(245, 158, 11, .35)); }
 
-.ps .ps-card { background-image: radial-gradient(120% 90% at 0% 0%, rgba(245, 158, 11, .10), transparent 55%), linear-gradient(to bottom, rgba(255, 255, 255, .10), rgba(255, 255, 255, .05)); }
 .ps .ps-halo { position: absolute; z-index: 0; left: -3rem; top: -3rem; width: 16rem; height: 16rem; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, .30), transparent 65%); filter: blur(10px); pointer-events: none; transition: opacity .4s, transform .6s; }
 .ps .ps-card:hover .ps-halo { transform: scale(1.25); }
-.ps .ps-idx { position: absolute; z-index: 0; right: 1rem; top: .3rem; font-size: 4.2rem; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(245, 158, 11, .22); pointer-events: none; transition: -webkit-text-stroke-color .3s; }
-.ps .ps-card:hover .ps-idx { -webkit-text-stroke-color: rgba(245, 158, 11, .6); }
-.ps .ps-card > *:not(.ps-halo):not(.ps-glow):not(.ps-idx) { position: relative; z-index: 2; }
-.ps .ps-card > .ps-idx { z-index: 1; }
 
 /* borde dorado que gira al pasar el mouse */
 @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
@@ -50,24 +45,7 @@
 .ps .ps-hoja > .ps-halo { position: absolute; z-index: 0; }
 @media (prefers-reduced-motion: reduce) { .ps .ps-card::before { animation: none; } }
 
-/* ---- Pase de acceso ---- */
-.ps .ps-ticket { background-image: radial-gradient(130% 90% at 0% 0%, rgba(245, 158, 11, .12), transparent 55%), linear-gradient(to bottom, #1d1d1d, #141414); }
 .ps .ps-topbar { position: absolute; left: 0; right: 0; top: 0; height: 4px; z-index: 4; background: linear-gradient(90deg, #b45309, #f59e0b 35%, #fde68a 60%, #f59e0b 80%, #b45309); }
-.ps .ps-stub { background: linear-gradient(180deg, rgba(245, 158, 11, .10), rgba(245, 158, 11, .03)); }
-.ps .ps-stub::before, .ps .ps-stub::after { content: ""; position: absolute; right: -13px; width: 26px; height: 26px; border-radius: 50%; background: #0b0b0b; border: 1px solid rgba(217, 154, 34, .55); z-index: 5; }
-.ps .ps-stub::before { top: -13px; }
-.ps .ps-stub::after { bottom: -13px; }
-.ps .ps-quote { position: relative; padding-left: 1.6rem; border-left: 2px solid rgba(245, 158, 11, .6); }
-.ps .ps-quote::before { content: "\201C"; position: absolute; left: .45rem; top: -.35rem; font-family: Georgia, serif; font-size: 2.4rem; line-height: 1; color: #f59e0b; }
-.ps .ps-quote { padding-top: .1rem; padding-bottom: .1rem; margin-top: 1rem; border-top: 0; }
-
-/* Cinta de nombres */
-.ps .ps-cinta { position: relative; overflow: hidden; border-block: 1px solid rgba(245, 158, 11, .25); background: linear-gradient(90deg, rgba(245, 158, 11, .06), rgba(245, 158, 11, .12), rgba(245, 158, 11, .06)); padding: .35rem 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.ps .ps-cinta .animate-marquee { animation-duration: 70s; }
-.ps .ps-cinta-item { display: inline-flex; align-items: center; gap: 1.4rem; padding-right: 1.4rem; font-size: clamp(1.6rem, 3.2vw, 2.4rem); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; color: #fff; }
-.ps .ps-cinta-item i { font-style: normal; font-size: .9rem; color: #f59e0b; }
-.ps .ps-cinta-item.ps-hueco { color: transparent; -webkit-text-stroke: 1px rgba(253, 230, 138, .85); }
-@media (prefers-reduced-motion: reduce) { .ps .ps-cinta .animate-marquee { animation: none; } }
 
 /* ---- Diseño reforzado ---- */
 /* Título editorial */
@@ -92,23 +70,23 @@
   background: linear-gradient(180deg, #fff3c4 0%, #fbbf24 45%, #b45309 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
 .ps .ps-mono-tag { position: absolute; left: 0; right: 0; bottom: 14%; text-align: center; letter-spacing: .16em; white-space: nowrap; color: rgba(253, 230, 138, .75); }
 
-/* Código de barras del pase */
-.ps .ps-barras { display: flex; align-items: stretch; justify-content: center; gap: 2px; height: 16px; width: 82%; margin-top: auto; opacity: .55; }
-.ps .ps-barras i { display: block; background: #f5bd45; }
-.ps .ps-card:hover .ps-barras { opacity: .95; }
-.ps .ps-card:hover .ps-barras i { background: #fde68a; }
-
-/* Destello que cruza la tarjeta */
-.ps .ps-ticket::after { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; z-index: 3; pointer-events: none; transform: skewX(-20deg); background: linear-gradient(90deg, transparent, rgba(253, 230, 138, .14), transparent); transition: left .9s ease; }
-.ps .ps-ticket:hover::after { left: 120%; }
-.ps .ps-stub { display: flex; }
-
-/* Marca de agua grande con las iniciales detrás del cuerpo */
-.ps .ps-ticket .ps-quote p { text-wrap: pretty; }
-
 /* Ventana de detalle */
 .ps .ps-hoja .ps-topbar { position: absolute; z-index: 4; }
 .ps .ps-hoja .ps-mono-frame { inset: 6%; }
 
-@media (prefers-reduced-motion: reduce) { .ps .ps-ticket::after { transition: none; } }
 .ps .ps-hoja > .ps-cerrar { position: absolute; top: 1rem; right: 1rem; z-index: 6; }
+
+/* ---- Cuadrícula compacta ---- */
+.ps .ps-card { background-image: none; }
+.ps .ps-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, rgba(0, 0, 0, .96) 0%, rgba(0, 0, 0, .82) 28%, rgba(0, 0, 0, .25) 58%, transparent 75%); transition: background .4s; }
+.ps .ps-card .ps-topbar { z-index: 3; }
+.ps .ps-hora { padding: .22rem .55rem; border-radius: 999px; background: rgba(0, 0, 0, .65); border: 1px solid rgba(245, 158, 11, .5); color: #fde68a; font-size: 10px; font-weight: 700; letter-spacing: .03em; backdrop-filter: blur(6px); }
+.ps .ps-card .ps-mono-ini { padding-bottom: 42%; }
+.ps .ps-card .ps-mono-tag, .ps .ps-card .ps-mono-frame { display: none; }
+.ps .ps-more { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s ease, opacity .35s ease; }
+@media (hover: hover) { .ps .ps-card:hover .ps-more, .ps .ps-card:focus-visible .ps-more { max-height: 9rem; opacity: 1; } }
+@media (hover: none) { .ps .ps-more { display: none; } }
+.ps .ps-card:hover .ps-veil { background: linear-gradient(to top, rgba(0, 0, 0, .97) 0%, rgba(0, 0, 0, .88) 45%, rgba(0, 0, 0, .3) 75%, transparent 92%); }
+.ps .ps-num { font-size: clamp(3.2rem, 7vw, 5rem); }
+.ps .ps-titulo { font-size: clamp(2.8rem, 7vw, 4.8rem); }
+@media (prefers-reduced-motion: reduce) { .ps .ps-more, .ps .ps-veil { transition: none; } }
