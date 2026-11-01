@@ -27,6 +27,7 @@ function Media({ p }) {
         <>
           <div className="absolute inset-0 bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700" />
           <div className="absolute inset-0 mix-blend-multiply"><Contornos id={p.id} color="#000" gain={0.55} /></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/25 to-transparent" />
           <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-bebas text-black/85 tracking-wide leading-none" style={{ fontSize: '58cqw' }}>{iniciales(p)}</span>
         </>
       )}
@@ -81,7 +82,11 @@ export default function PonentesSitio() {
   let k = 0
 
   return (
-    <div ref={raiz} className="ps text-left">
+    <div ref={raiz} className="ps relative text-left">
+      <div className="ps-bg" aria-hidden="true">
+        <div className="ps-bg-a"><Contornos id={21} color="#f59e0b" gain={1} /></div>
+        <div className="ps-bg-b"><Contornos id={7} color="#f59e0b" gain={1} /></div>
+      </div>
       {/* Filtros: mismo estilo que las pestañas del sitio */}
       <div className="flex flex-wrap justify-center items-center gap-2 mb-12 bg-dark-surface/80 p-2 rounded-2xl border border-white/10 max-w-2xl mx-auto backdrop-blur-md" role="group" aria-label="Filtrar ponentes">
         {FILTROS.map(([key, t]) => (
@@ -94,12 +99,14 @@ export default function PonentesSitio() {
 
       {grupos.map((g) => (
         <section key={g.num + filtro} className="mb-14" aria-label={`Ponentes del ${g.nombre} ${g.num} de noviembre`}>
-          <div className="flex items-center gap-4 mb-7">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-semibold border border-amber-500/20 whitespace-nowrap">
-              {g.nombre} {g.num} de noviembre
-            </span>
-            <span className="h-px flex-1 bg-gradient-to-r from-amber-500/40 to-transparent" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-gray-500 whitespace-nowrap">{g.items.length} {g.items.length === 1 ? 'ponente' : 'ponentes'}</span>
+          <div className="flex items-end gap-4 sm:gap-6 mb-9">
+            <span className="ps-num font-bebas select-none" aria-hidden="true">{String(g.num).padStart(2, '0')}</span>
+            <div className="pb-1 min-w-0">
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.3em] text-amber-500 mb-1.5">de noviembre · 2026</p>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white leading-none">{g.nombre} <span className="text-amber-400">{g.num}</span></h2>
+            </div>
+            <span className="h-px flex-1 bg-gradient-to-r from-amber-500/50 to-transparent mb-3" />
+            <span className="hidden sm:block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2 whitespace-nowrap">{g.items.length} {g.items.length === 1 ? 'ponente' : 'ponentes'}</span>
           </div>
 
           <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -111,9 +118,13 @@ export default function PonentesSitio() {
                   aria-label={`Ver la ponencia de ${p.nombre}`}
                   className="ps-card group relative w-full h-full flex gap-5 sm:gap-6 items-stretch text-left overflow-hidden rounded-3xl border border-gold-500/30 bg-gradient-to-b from-white/10 to-white/5 p-4 sm:p-5 hover:border-gold-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300 cursor-pointer"
                 >
+                  <span className="ps-halo" aria-hidden="true" />
                   <span className="ps-glow" aria-hidden="true" />
-                  <div className="relative shrink-0 w-28 sm:w-40 aspect-[2/3] self-start rounded-2xl overflow-hidden ring-1 ring-amber-500/50 shadow-lg shadow-black/50">
-                    <Media p={p} />
+                  <span className="ps-idx font-bebas" aria-hidden="true">{String(p.id).padStart(2, '0')}</span>
+                  <div className="ps-frame relative shrink-0 w-28 sm:w-40 self-start">
+                    <div className="relative aspect-[2/3] rounded-2xl overflow-hidden ring-2 ring-amber-500/70 shadow-2xl shadow-black/60">
+                      <Media p={p} />
+                    </div>
                   </div>
                   <div className="relative min-w-0 flex-1 flex flex-col">
                     <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -126,14 +137,15 @@ export default function PonentesSitio() {
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug mb-1">{p.nombre}</h3>
+                    <h3 className="text-lg sm:text-xl font-extrabold text-white leading-snug">{p.nombre}</h3>
+                    <span className="ps-rule" aria-hidden="true" />
                     {p.cargo && <p className="text-sm text-amber-400 font-semibold leading-snug">{p.cargo}</p>}
                     <p className="text-sm text-gray-300 leading-snug mt-0.5">{p.empresa}</p>
                     <div className="mt-4 pt-3 border-t border-white/10 flex-1">
                       <p className="text-[11px] font-bold uppercase tracking-widest text-amber-500 mb-1">Tema de ponencia</p>
                       <p className={`text-sm leading-relaxed line-clamp-3 ${p.tema ? 'text-gray-200' : 'text-gray-500 italic'}`}>{p.tema || 'Tema por confirmar'}</p>
                     </div>
-                    <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-amber-400 group-hover:gap-3 transition-all">
+                    <span className="mt-4 self-start inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/40 text-sm font-bold text-amber-400 group-hover:bg-amber-500 group-hover:text-black group-hover:gap-3 transition-all duration-300">
                       Ver detalle <ArrowRight size={16} />
                     </span>
                   </div>
@@ -147,7 +159,8 @@ export default function PonentesSitio() {
       {actual && (
         <div className="ps-modal fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-label={`Ponencia de ${actual.nombre}`} onClick={(e) => e.target === e.currentTarget && cerrar()}>
           <article key={actual.id} className="ps-hoja relative w-full max-w-4xl my-auto grid md:grid-cols-[0.8fr_1.5fr] overflow-hidden rounded-3xl border border-gold-500/40 bg-dark-surface shadow-2xl shadow-black">
-            <div className="p-6 sm:p-8 md:pr-0 flex items-center justify-center">
+            <span className="ps-halo" style={{ left: '-5rem', top: '-5rem', width: '22rem', height: '22rem' }} aria-hidden="true" />
+            <div className="relative p-6 sm:p-8 md:pr-0 flex items-center justify-center">
               <div className="relative w-48 sm:w-60 md:w-full max-w-[300px] aspect-[2/3] rounded-2xl overflow-hidden ring-1 ring-amber-500/50 shadow-2xl shadow-black">
                 <Media p={actual} />
               </div>
