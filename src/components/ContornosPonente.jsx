@@ -13,7 +13,7 @@ function seeded(seed) {
 }
 
 // Mapa topográfico único por ponente (se usa cuando todavía no hay foto)
-export default function ContornosPonente({ id }) {
+export default function ContornosPonente({ id, color = '#d9a441', gain = 1 }) {
   const paths = useMemo(() => {
     const r = seeded(id + 11)
     const cx = 50 + (r() - 0.5) * 24
@@ -34,8 +34,8 @@ export default function ContornosPonente({ id }) {
     return out
   }, [id])
   return (
-    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#d9a441" aria-hidden="true">
-      {paths.map((p, i) => <path key={i} d={p.d} strokeWidth={p.w} opacity={p.o} />)}
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="none" stroke={color} aria-hidden="true">
+      {paths.map((p, i) => <path key={i} d={p.d} strokeWidth={p.w} opacity={Math.min(1, p.o * gain)} />)}
     </svg>
   )
 }

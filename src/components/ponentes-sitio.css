@@ -1,0 +1,16 @@
+/* Efectos de apoyo para PonentesSitio (el resto usa las clases Tailwind del sitio) */
+.ps .ps-item { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--k, 0) * 80ms); }
+.ps .ps-item.in { opacity: 1; transform: none; }
+.ps .ps-card { --mx: 50%; --my: 0%; }
+.ps .ps-glow { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .35s; background: radial-gradient(360px circle at var(--mx) var(--my), rgba(245, 158, 11, .16), transparent 60%); }
+.ps .ps-card:hover .ps-glow { opacity: 1; }
+.ps .ps-card:focus-visible, .ps button:focus-visible, .ps a:focus-visible { outline: 3px solid #f5bd45; outline-offset: 3px; }
+.ps .ps-modal { animation: ps-fade .25s both; }
+.ps .ps-hoja { animation: ps-pop .5s cubic-bezier(.2, .8, .2, 1) both; }
+.ps .ps-bio b { color: #f5bd45; font-weight: 700; }
+@keyframes ps-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ps-pop { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ps .ps-item { opacity: 1; transform: none; transition: none; }
+  .ps .ps-modal, .ps .ps-hoja { animation: none; }
+}
