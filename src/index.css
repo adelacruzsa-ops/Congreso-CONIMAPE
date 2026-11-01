@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold-300: #f5bd45;
+  --color-gold-400: #e5a42a;
+  --color-gold-500: #d99a22;
+  --color-gold-600: #b37b14;
+
+  --color-dark-bg: #0b0b0b;
+  --color-dark-surface: #111111;
+  --color-dark-card: #191919;
+  --color-dark-card-hover: #242424;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+}
+
+/* Fallback & Custom Utility Classes */
+.bg-dark-bg {
+  background-color: #0b0b0b;
+}
+
+.bg-dark-surface {
+  background-color: #111111;
+}
+
+.bg-dark-card {
+  background-color: #191919;
+}
+
+.text-gold-500 {
+  color: #d99a22;
+}
+
+.bg-gold-500 {
+  background-color: #d99a22;
+}
+
+.border-gold-500 {
+  border-color: #d99a22;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0b0b0b;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+@keyframes floatAnimation {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: floatAnimation 3.5s ease-in-out infinite;
+}
+
+@keyframes marqueeAnim {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeReverseAnim {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeAnim 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marqueeReverseAnim 25s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
